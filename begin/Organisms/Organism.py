@@ -105,13 +105,13 @@ class Organism(ABC):
 	def clone(self):
 		pass
 
-	def consequences(self, atackingOrganism):
+	def consequences(self, attackingOrganism):
 		result = []
 
-		if self.power > atackingOrganism.power:
-			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=-1, yPosition=-1), 0, atackingOrganism))
+		if self.power > attackingOrganism.power:
+			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=self.GRAVEYARD_POSITION_X, yPosition=self.GRAVEYARD_POSITION_Y), 0, attackingOrganism))
 		else:
-			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=-1, yPosition=-1), 0, self))
+			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=self.GRAVEYARD_POSITION_X, yPosition=self.GRAVEYARD_POSITION_Y), 0, self))
 		return result
 
 	def canReproduce(self):

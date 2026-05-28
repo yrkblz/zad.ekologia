@@ -3,53 +3,52 @@ from Action import Action
 from ActionEnum import ActionEnum
 import random
 
-
 class Animal(Organism):
+    POWER_REPRODUCTION_PENALTY_DIVIDER = 2 
 
-	def __init__(self, animal=None, position=None, world=None):
-		super(Animal, self).__init__(animal, position, world)
-		self.__lastPosition = position
+    def __init__(self, animal=None, position=None, world=None):
+        super(Animal, self).__init__(animal, position, world)
+        self.__lastPosition = position
 
-	@property
-	def lastPosition(self):
-		return self.__lastPosition
+    @property
+    def lastPosition(self):
+        return self.__lastPosition
 
-	@lastPosition.setter
-	def lastPosition(self, value):
-		self.__lastPosition = value
+    @lastPosition.setter
+    def lastPosition(self, value):
+        self.__lastPosition = value
 
-	def move(self):
-		result = []
-		pomPositions = self.getNeighboringPosition()
-		newPosition = None
+    def move(self):
+        result = []
+        candidatePositions = self.getNeighboringPosition() # Poprawiony ponglish
+        newPosition = None
 
-		if pomPositions:
-			newPosition = random.choice(pomPositions)
-			result.append(Action(ActionEnum.A_MOVE, newPosition, 0, self))
-			self.lastPosition = self.position
-			metOrganism = self.world.getOrganismFromPosition(newPosition)
-			if metOrganism is not None:
-				result.extend(metOrganism.consequences(self))
-		return result
+        if candidatePositions:
+            newPosition = random.choice(candidatePositions)
+            result.append(Action(ActionEnum.A_MOVE, newPosition, 0, self))
+            self.lastPosition = self.position
+            metOrganism = self.world.getOrganismFromPosition(newPosition)
+            if metOrganism is not None:
+                result.extend(metOrganism.consequences(self))
+        return result
 
-	def action(self):
-		result = []
-		newAnimal = None
-		birthPositions = self.getNeighboringBirthPosition()
+    def action(self):
+        result = []
+        birthPositions = self.getNeighboringBirthPosition()
 
-		if self.canReproduce() and birthPositions:
-			newAnimalPosition = random.choice(birthPositions)
-			newAnimal = self.clone()
-			newAnimal.initParams()
-			newAnimal.position = newAnimalPosition
-			self.power = self.power / 2
-			result.append(Action(ActionEnum.A_ADD, newAnimalPosition, 0, newAnimal))
-		return result
+        if self.canReproduce() and birthPositions:
+            newAnimalPosition = random.choice(birthPositions)
+            newAnimal = self.clone()
+            newAnimal.initParams()
+            newAnimal.position = newAnimalPosition
+            self.power = self.power // self.POWER_REPRODUCTION_PENALTY_DIVIDER
+            result.append(Action(ActionEnum.A_ADD, newAnimalPosition, 0, newAnimal))
+        return result
 
-	def getNeighboringPosition(self):
-		return self.world.getNeighboringPositions(self.position)
+    def getNeighboringPosition(self):
+        return self.world.getNeighboringPositions(self.position)
 
-	def getNeighboringBirthPosition(self):
-		return self.world.filterFreePositions(self.world.getNeighboringPositions(self.position))
+    def getNeighboringBirthPosition(self):
+        return self.world.filterFreePositions(self.world.getNeighboringPositions(self.position))
 
 	

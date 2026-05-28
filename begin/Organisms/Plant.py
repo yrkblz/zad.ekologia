@@ -27,7 +27,7 @@ class Plant(Organism):
                 newPlant = self.clone()
                 newPlant.initParams()
                 newPlant.position = newPosition
-                self.power = self.power / self.POWER_REPRODUCTION_PENALTY_DIVIDER
+                self.power = self.power // self.POWER_REPRODUCTION_PENALTY_DIVIDER
                 result.append(Action(ActionEnum.A_ADD, newPosition, 0, newPlant))
         return result
 

@@ -34,19 +34,22 @@ class SpeciesGuard(object):
     def __apply_bonus(self, organism):
         """Nakłada bonus reprodukcyjny na 3 tury (jeśli nie jest już nałożony)"""
         if organism not in self.buffed_organisms:
+            original = organism.powerToReproduce
             organism.powerToReproduce = organism.powerToReproduce // 2
-            self.buffed_organisms[organism] = 3
+            self.buffed_organisms[organism] = (3, original)
 
     def __manage_buffs(self):
         """Odlicza czas trwania bonusu i cofa go po 3 turach"""
         expired = []
-        for org in self.buffed_organisms:
-            self.buffed_organisms[org] -= 1
-            if self.buffed_organisms[org] <= 0:
+        for org, (turns_left, original) in self.buffed_organisms.items():
+            turns_left -= 1
+            if turns_left <= 0:
                 expired.append(org)
+            else:
+                self.buffed_organisms[org] = (turns_left, original)
         
         for org in expired:
-            org.powerToReproduce = org.powerToReproduce * 2
+            org.powerToReproduce = self.buffed_organisms[org][1]
             del self.buffed_organisms[org]
 
     def __resurrect_species(self, cls, world):

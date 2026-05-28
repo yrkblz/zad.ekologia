@@ -10,6 +10,7 @@ class Antelope(Sheep):
     LIVE_LENGTH = 11
     POWER_TO_REPRODUCE = 5
     SIGN = 'A'
+    ESCAPE_DISTANCE = 2
     
     def __init__(self, antelope=None, position=None, world=None):
         super(Antelope, self).__init__(antelope, position, world)
@@ -47,7 +48,8 @@ class Antelope(Sheep):
         result = []
         dx = self.position.x - lynx_position.x
         dy = self.position.y - lynx_position.y
-        escape_position = Position(xPosition=self.position.x + (2 * dx), yPosition=self.position.y + (2 * dy))
+        # Użycie stałej ESCAPE_DISTANCE zamiast wpisanej "2"
+        escape_position = Position(xPosition=self.position.x + (self.ESCAPE_DISTANCE * dx), yPosition=self.position.y + (self.ESCAPE_DISTANCE * dy))
         
         if self.world.positionOnBoard(escape_position):
             result.append(Action(ActionEnum.A_MOVE, escape_position, 0, self))
