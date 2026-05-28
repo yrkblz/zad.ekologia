@@ -21,7 +21,7 @@ class Sheep(Animal):
         self.powerToReproduce = self.POWER_TO_REPRODUCE
         self.sign = self.SIGN
 
-    def getNeighboringPosition(self):
+    def getNeighboringPositions(self):
         return self.world.filterPositionsWithoutAnimals(
             self.world.getNeighboringPositions(self.position)
         )

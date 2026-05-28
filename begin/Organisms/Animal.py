@@ -20,7 +20,7 @@ class Animal(Organism):
 
     def move(self):
         result = []
-        candidatePositions = self.getNeighboringPosition() # Poprawiony ponglish
+        candidatePositions = self.getNeighboringPositions() # Zmieniona nazwa
         newPosition = None
 
         if candidatePositions:
@@ -34,7 +34,7 @@ class Animal(Organism):
 
     def action(self):
         result = []
-        birthPositions = self.getNeighboringBirthPosition()
+        birthPositions = self.getNeighboringBirthPositions() # Zmieniona nazwa
 
         if self.canReproduce() and birthPositions:
             newAnimalPosition = random.choice(birthPositions)
@@ -45,10 +45,11 @@ class Animal(Organism):
             result.append(Action(ActionEnum.A_ADD, newAnimalPosition, 0, newAnimal))
         return result
 
-    def getNeighboringPosition(self):
+    # Poprawione nazewnictwo na liczbę mnogą
+    def getNeighboringPositions(self):
         return self.world.getNeighboringPositions(self.position)
 
-    def getNeighboringBirthPosition(self):
+    def getNeighboringBirthPositions(self):
         return self.world.filterFreePositions(self.world.getNeighboringPositions(self.position))
 
 	

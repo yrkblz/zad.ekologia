@@ -20,7 +20,7 @@ class Lynx(Animal):
         self.powerToReproduce = self.POWER_TO_REPRODUCE
         self.sign = self.SIGN
 
-    def getNeighboringPosition(self):
+    def getNeighboringPositions(self):
         all_neighboring_positions = self.world.getNeighboringPositions(self.position)
         valid_position = []
         

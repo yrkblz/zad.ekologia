@@ -3,7 +3,6 @@ from Action import Action
 from ActionEnum import ActionEnum
 import random
 
-
 class Plant(Organism):
     POWER_REPRODUCTION_PENALTY_DIVIDER = 2
 
@@ -20,10 +19,11 @@ class Plant(Organism):
         newPosition = None
 
         if self.canReproduce():
-            pomPositions = self.getFreeNeighboringPosition(self.position)
+            # Całkowite usunięcie ponglisha z kodu
+            candidatePositions = self.getFreeNeighboringPositions(self.position)
 
-            if pomPositions:
-                newPosition = random.choice(pomPositions)
+            if candidatePositions:
+                newPosition = random.choice(candidatePositions)
                 newPlant = self.clone()
                 newPlant.initParams()
                 newPlant.position = newPosition
@@ -31,5 +31,6 @@ class Plant(Organism):
                 result.append(Action(ActionEnum.A_ADD, newPosition, 0, newPlant))
         return result
 
-    def getFreeNeighboringPosition(self, position):
+    # Liczba mnoga
+    def getFreeNeighboringPositions(self, position):
         return self.world.filterFreePositions(self.world.getNeighboringPositions(position))

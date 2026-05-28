@@ -1,1 +1,1 @@
-__all__ = ['Organism', 'Plant', 'Grass', 'Animal', 'Sheep','Alient','Lynx','Antelope']
+__all__ = ['Organism', 'Plant', 'Grass', 'Animal', 'Sheep','Lynx','Antelope']

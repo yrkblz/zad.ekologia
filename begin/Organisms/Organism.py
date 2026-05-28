@@ -109,6 +109,7 @@ class Organism(ABC):
 		result = []
 
 		if self.power > attackingOrganism.power:
+			
 			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=self.GRAVEYARD_POSITION_X, yPosition=self.GRAVEYARD_POSITION_Y), 0, attackingOrganism))
 		else:
 			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=self.GRAVEYARD_POSITION_X, yPosition=self.GRAVEYARD_POSITION_Y), 0, self))

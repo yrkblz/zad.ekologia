@@ -105,10 +105,10 @@ class World(object):
 		result = []
 		candidateOrg = None
 
-		for filed in fields:
-			candidateOrg = self.getOrganismFromPosition(filed)
+		for field in fields:
+			candidateOrg = self.getOrganismFromPosition(field)
 			if candidateOrg is None or isinstance(candidateOrg, Plant):
-				result.append(filed)
+				result.append(field)
 		return result
 
 	

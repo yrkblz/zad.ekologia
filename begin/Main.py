@@ -36,18 +36,15 @@ if __name__ == '__main__':
     for _ in range(0, TOTAL_TURNS):
         turn_advanced = False
         
-       
         while not turn_advanced:
             prompt_msg = 'ENTER: kolejna tura | "p": plaga | "dodaj [Znak] [X] [Y]" (np. dodaj S 3 3): '
             user_input = input(prompt_msg).strip().split()
             
             if not user_input:
-            
                 turn_advanced = True
                 
             elif user_input[0].lower() == 'p':
-                # Aktywacja plagi i od razu przejście do kolejnej tury
-                world.plagueTurns = 2
+                turnManager.activatePlague()
                 turn_advanced = True
                 
             elif user_input[0].isalpha() and len(user_input) == 3:
