@@ -5,30 +5,31 @@ import random
 
 
 class Plant(Organism):
+    POWER_REPRODUCTION_PENALTY_DIVIDER = 2
 
-	def __init__(self, plant=None, position=None, world=None):
-		super(Plant, self).__init__(plant, position, world)
+    def __init__(self, plant=None, position=None, world=None):
+        super(Plant, self).__init__(plant, position, world)
 
-	def move(self):
-		result = []
-		return result
+    def move(self):
+        result = []
+        return result
 
-	def action(self):
-		result = []
-		newPlant = None
-		newPosition = None
+    def action(self):
+        result = []
+        newPlant = None
+        newPosition = None
 
-		if self.ifReproduce():
-			pomPositions = self.getFreeNeighboringPosition(self.position)
+        if self.canReproduce():
+            pomPositions = self.getFreeNeighboringPosition(self.position)
 
-			if pomPositions:
-				newPosition = random.choice(pomPositions)
-				newPlant = self.clone()
-				newPlant.initParams()
-				newPlant.position = newPosition
-				self.power = self.power / 2
-				result.append(Action(ActionEnum.A_ADD, newPosition, 0, newPlant))
-		return result
+            if pomPositions:
+                newPosition = random.choice(pomPositions)
+                newPlant = self.clone()
+                newPlant.initParams()
+                newPlant.position = newPosition
+                self.power = self.power / self.POWER_REPRODUCTION_PENALTY_DIVIDER
+                result.append(Action(ActionEnum.A_ADD, newPosition, 0, newPlant))
+        return result
 
-	def getFreeNeighboringPosition(self, position):
-		return self.world.filterFreePositions(self.world.getNeighboringPositions(position))
+    def getFreeNeighboringPosition(self, position):
+        return self.world.filterFreePositions(self.world.getNeighboringPositions(position))

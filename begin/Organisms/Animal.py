@@ -37,7 +37,7 @@ class Animal(Organism):
 		newAnimal = None
 		birthPositions = self.getNeighboringBirthPosition()
 
-		if self.ifReproduce() and birthPositions:
+		if self.canReproduce() and birthPositions:
 			newAnimalPosition = random.choice(birthPositions)
 			newAnimal = self.clone()
 			newAnimal.initParams()

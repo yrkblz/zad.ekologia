@@ -5,6 +5,8 @@ from ActionEnum import ActionEnum
 
 
 class Organism(ABC):
+	GRAVEYARD_POSITION_X = -1
+	GRAVEYARD_POSITION_Y = -1
 
 	def __init__(self, organism, position, world):
 		self.__power = None
@@ -112,7 +114,7 @@ class Organism(ABC):
 			result.append(Action(ActionEnum.A_REMOVE, Position(xPosition=-1, yPosition=-1), 0, self))
 		return result
 
-	def ifReproduce(self):
+	def canReproduce(self):
 		result = False
 
 		if self.power >= self.powerToReproduce:
